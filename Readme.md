@@ -13,7 +13,7 @@ Additionally, two more items are created:
 - __key vault__ to store the admin password plus the private SSH key which is copied from ~/.ssh/id_rsa
     > The key vault and relevant secrets will only be created if the `user_object_id` (see below) is provided
 - __monitor alerts__ which send out emails when the Traffic Manager's primary endpoint is down
-    > The alert is created after ansible finishes, however, a misfire can if the alert if finished before nginx has a chance to start.
+    > The alert is created after ansible finishes, however, a misfire can happen if the alert creation is finished before nginx had a chance to start.
 
 ## Configure
 
