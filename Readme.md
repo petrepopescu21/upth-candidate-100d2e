@@ -21,7 +21,8 @@ Additionally, two more items are created:
 - __subscription_id__: The Azure Subscription ID where the deployment occurs
 - __tenant_id__: The Azure Active Directory Tenant ID
 - __user_object_id__ (optional): The AAD object id of the user logged in to AAD. This is required for setting Key Vault access policies.
-    > The latter is needed for Azure CLI authentication to work, so we can instruct Terraform to which user to provide Azure Key Vault Secret Write permissions. Basically, it's a hack since we can't obtain this ID script-side without a complex workaround.
+    
+> The latter is needed for Azure CLI authentication to work, so we can instruct Terraform to which user to provide Azure Key Vault Secret Write permissions. Basically, it's a hack since we can't obtain this ID script-side without a complex workaround.
 
 ### names.auto.tfvars
 -   __azurerm_resource_group_name__: The target Azure Resource Group for the deployment
