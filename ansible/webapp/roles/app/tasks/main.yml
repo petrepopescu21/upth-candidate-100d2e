@@ -1,0 +1,19 @@
+---
+  - name: Install unzip
+    apt: name=unzip state=latest
+  
+  - file:
+      path: /home/app
+      state: directory
+
+  - name: Download App Package
+    unarchive:
+      src: https://uipathdevtest.blob.core.windows.net/binaries/netcoreapp2.2.zip
+      dest: /home/app
+      remote_src: true
+
+  - name: Copy supervisor config file and restart
+    template: src=supervisor-dotnet.conf dest=/etc/supervisor/conf.d/supervisor-dotnet.conf
+    notify: 
+      - update programs 
+      - start dotnet

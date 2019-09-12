@@ -1,0 +1,8 @@
+---
+- name: Install Nginx, ASP.NET Core, Supervisor and configure everything
+  hosts: all
+  roles:
+    - supervisor
+    - nginx
+    - dotnet
+    - app

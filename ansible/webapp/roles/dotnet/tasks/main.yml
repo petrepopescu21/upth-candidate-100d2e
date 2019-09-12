@@ -1,0 +1,31 @@
+---
+- name: Check if MS Feed Packag is installed
+  command: dpkg-query -W packages-microsoft-prod
+  register: debcheck
+  failed_when: debcheck.rc > 1
+  changed_when: debcheck.rc == 1
+
+- name: Download MS Feed Package
+  get_url:
+    url: https://packages.microsoft.com/config/ubuntu/18.04/packages-microsoft-prod.deb
+    dest: /home/packages-microsoft-prod.deb
+  when: debcheck.rc == 1
+
+- name: Install MS Feed Package
+  apt: deb="/home/packages-microsoft-prod.deb"
+  sudo: true
+  when: debcheck.rc == 1
+
+- name: Enable Universe repository
+  apt_repository:
+    repo: "{{ item }}"
+  loop:
+    - "deb http://archive.ubuntu.com/ubuntu/ bionic universe"
+    - "deb http://archive.ubuntu.com/ubuntu/ bionic-updates universe"
+    - "deb http://security.ubuntu.com/ubuntu/ bionic-security universe"
+
+- name: Install apt-transport-https
+  apt: name=apt-transport-https state=latest
+
+- name: Install dotnetcore
+  apt: name=aspnetcore-runtime-2.2 state=latest

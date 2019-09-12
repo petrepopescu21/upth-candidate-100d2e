@@ -1,0 +1,15 @@
+---
+- name: update programs
+  command: sudo supervisorctl update
+
+- name: start dotnet
+  command: sudo supervisorctl start webapi
+  
+- name: restart dotnet
+  command: sudo supervisorctl restart webapi
+  
+- name: start nginx
+  command: sudo supervisorctl start nginx
+  
+- name: restart nginx
+  command: sudo supervisorctl restart nginx
