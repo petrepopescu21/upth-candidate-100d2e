@@ -17,7 +17,7 @@ variable "ssh_priv_key" {
   default = "~/.ssh/id_rsa"
 }
 variable "alert_to_email" {
-  default = "youremail@address.com"
+  default = "petrepopescu21@gmail.com"
 }
 
 provider "azurerm" {
@@ -92,7 +92,7 @@ resource "azurerm_monitor_action_group" "emaction" {
   short_name          = "ac-${var.prefix}"
   email_receiver {
     name          = "sendtocandidate"
-    email_address = "petrepopescu21@gmail.com"
+    email_address = "${var.alert_to_email}"
   }
 }
 
