@@ -13,7 +13,7 @@ Additionally, two more items are created:
 - __key vault__ to store the admin password plus the private SSH key which is copied from ~/.ssh/id_rsa
     > The key vault and relevant secrets will only be created if the `user_object_id` (see below) is provided
 - __monitor alerts__ which send out emails when the Traffic Manager's primary endpoint is down
-    > The alert is created after ansible finishes, however, a misfire can if the alert if finished before nginx has a chance to start.
+    > The alert is created after ansible finishes, however, a misfire can happen if the alert creation is finished before nginx had a chance to start.
 
 ## Configure
 
@@ -21,7 +21,8 @@ Additionally, two more items are created:
 - __subscription_id__: The Azure Subscription ID where the deployment occurs
 - __tenant_id__: The Azure Active Directory Tenant ID
 - __user_object_id__ (optional): The AAD object id of the user logged in to AAD. This is required for setting Key Vault access policies.
-    > The latter is needed for Azure CLI authentication to work, so we can instruct Terraform to which user to provide Azure Key Vault Secret Write permissions. Basically, it's a hack since we can't obtain this ID script-side without a complex workaround.
+    
+> The latter is needed for Azure CLI authentication to work, so we can instruct Terraform to which user to provide Azure Key Vault Secret Write permissions. Basically, it's a hack since we can't obtain this ID script-side without a complex workaround. = If not set, the key vault will not be created.
 
 ### names.auto.tfvars
 -   __azurerm_resource_group_name__: The target Azure Resource Group for the deployment
