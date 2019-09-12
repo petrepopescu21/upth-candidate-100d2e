@@ -28,7 +28,7 @@ Additionally, two more items are created:
 -   __azurerm_resource_group_name__: The target Azure Resource Group for the deployment
 -   __prefix__: A unique key (3-8 characters) to ensure unique resource names and FQDNs.
 
-### other varialbes
+### other variables
 To override default variables, create your own file.auto.tfvars following the sample below and add your desired values:
 ```bash
 regions {
