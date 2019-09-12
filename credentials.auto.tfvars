@@ -1,3 +1,3 @@
-subscription_id = "0b0a8aa8-5fb4-4985-bab2-cfdf21a18f46"
-tenant_id       = "4c1d9e0f-5c27-4228-a35a-de7b4083ff7b"
+subscription_id = "8e346e72-1237-4ba0-b40e-51bab197bf0d"
+tenant_id       = "d8353d2a-b153-4d17-8827-902c51f72357"
 user_object_id  = ""
