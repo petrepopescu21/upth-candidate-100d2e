@@ -10,6 +10,15 @@ variable "regions" {
     secondary = "North Europe"
   }
 }
+variable "ssh_pub_key" {
+  default = "~/.ssh/id_rsa.pub"
+}
+variable "ssh_priv_key" {
+  default = "~/.ssh/id_rsa"
+}
+variable "alert_to_email" {
+  default = "youremail@address.com"
+}
 
 provider "azurerm" {
   version         = "=1.33.1"
@@ -47,6 +56,8 @@ module "vm_primary" {
   prefix              = "${var.prefix}-primary"
   location            = "${var.regions.primary}"
   admin_password      = "${random_password.password.result}"
+  ssh_pub_key = "${var.ssh_pub_key}"
+  ssh_priv_key = "${var.ssh_priv_key}"
 }
 
 module "vm_secondary" {
@@ -55,6 +66,8 @@ module "vm_secondary" {
   prefix              = "${var.prefix}-secondary"
   location            = "${var.regions.secondary}"
   admin_password      = "${random_password.password.result}"
+  ssh_pub_key = "${var.ssh_pub_key}"
+  ssh_priv_key = "${var.ssh_priv_key}"
 }
 
 module "traffic_manager" {
@@ -146,7 +159,7 @@ resource "azurerm_key_vault_secret" "vm-ansible-key" {
   count = "${var.user_object_id != "" ? 1 : 0}"
   
   name         = "ansible-private-key"
-  value        = "${file("~/.ssh/id_rsa")}"
+  value        = "${file(var.ssh_priv_key)}"
   key_vault_id = "${azurerm_key_vault.kv[count.index].id}"
   content_type = "text/plain"
 }

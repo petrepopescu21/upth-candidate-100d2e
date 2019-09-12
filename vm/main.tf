@@ -8,6 +8,8 @@ variable "admin_username" {
   default = "rootadmin"
 }
 variable "admin_password" {}
+variable "ssh_pub_key" {}
+variable "ssh_priv_key" {}
 
 resource "azurerm_virtual_network" "main" {
   name                = "petre-${var.prefix}-network"
@@ -108,7 +110,7 @@ resource "azurerm_virtual_machine" "main" {
   os_profile_linux_config {
     disable_password_authentication = false
     ssh_keys {
-      key_data = "${file("~/.ssh/id_rsa.pub")}"
+      key_data = "${file(var.ssh_pub_key)}"
       path     = "/home/${var.admin_username}/.ssh/authorized_keys"
     }
   }
@@ -132,12 +134,12 @@ resource "null_resource" "run-ansible" {
       host = "${data.azurerm_public_ip.postdeploy.fqdn}"
       type = "ssh"
       user = "rootadmin"
-      private_key = "${file("~/.ssh/id_rsa")}"
+      private_key = "${file(var.ssh_priv_key)}"
     }
   }
 
   provisioner "local-exec" {
-    command = "ansible-playbook -i '${data.azurerm_public_ip.postdeploy.fqdn},' -u ${var.admin_username} --private-key ~/.ssh/id_rsa  ./ansible/webapp/main.yml -b"
+    command = "ansible-playbook -i '${data.azurerm_public_ip.postdeploy.fqdn},' -u ${var.admin_username} --private-key ${var.ssh_priv_key} ./ansible/webapp/main.yml -b"
     environment = {
       ANSIBLE_HOST_KEY_CHECKING = "false"
     }
