@@ -6,8 +6,8 @@ variable "azurerm_resource_group_name" {}
 variable "regions" {
   description = "List of primary and secondary regions, in order, for the VM locations"
   default = {
-    primary   = "West Europe"
-    secondary = "North Europe"
+    primary   = "westeurope"
+    secondary = "northeurope"
   }
 }
 variable "ssh_pub_key" {
@@ -42,6 +42,11 @@ provider "null" {
 resource "azurerm_resource_group" "main" {
   name     = "${var.azurerm_resource_group_name}"
   location = "${var.regions.primary}"
+  tags = {
+              Owner = "petrepopescu21@gmail.com"
+              Owner_id = "1213d239-54dc-4308-aa3d-08d494e7e4ca"
+              Project = "Homework"
+  }
 }
 
 # Generate SSH password and write inventory variables
@@ -165,5 +170,5 @@ resource "azurerm_key_vault_secret" "vm-ansible-key" {
 }
 
 output "traffic_manager_url" {
-  value = "https://${module.traffic_manager.name}.trafficnamanger.net"
+  value = "http://${module.traffic_manager.fqdn}.trafficmanager.net"
 }

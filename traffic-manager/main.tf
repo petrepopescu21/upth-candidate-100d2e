@@ -57,3 +57,7 @@ output "profile_id" {
 output "primary_endpoint_name" {
   value = "${azurerm_traffic_manager_endpoint.tm-primary-endpoint.name}"
 }
+
+output "fqdn" {
+  value = "${azurerm_traffic_manager_profile.tm-profile.fqdn}"
+}
